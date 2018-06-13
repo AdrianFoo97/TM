@@ -26,7 +26,7 @@
             <h1>PR-Template Tool</h1>
           </div>
           <table border='0' style='margin-top: 5%'>
-            <form action='new.php' method='post'>
+            <form action='fillForm.php' method='post'>
               <!-- Scenario input -->
               <tr>
                 <td align=right width='30%' height=70><label>Type:&nbsp;</label></td>
@@ -83,7 +83,6 @@
               </tr>
             </form>
           </table>
-
       </div>
     </div>
   </body>

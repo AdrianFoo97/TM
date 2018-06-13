@@ -1,5 +1,6 @@
 <?php
   include 'function.php';
+  include 'dbConnect.php';
   echo $_POST['type'];
   echo "<br>";
   echo $_POST['requestorID'];
@@ -34,4 +35,15 @@
   echo "subproject code: " . $str . "<br>";
   $str = getSubprojectCode("TX", "Northern");
   echo "subproject code: " . $str . "<br>";
+
+  echo "<br><br><br>";
+
+  $type = $_POST['type'];
+
+
+  $result = getProduct($type);
+  foreach ($result as $col => $data){
+    echo $col . "=>" . $data . "<br>";
+  }
+
 ?>
