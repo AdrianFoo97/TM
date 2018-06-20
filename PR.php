@@ -1,13 +1,22 @@
 <?php
   // object class for PR
   class PR {
-    private $issuance, $product;
+    private $issuance, $product, $procurement;
 
-    public function PR($issuance, $product, $departmentCode, $tenderID) {
+    public function PR($issuance, $procurement, $product, $departmentCode, $tenderID) {
       $this->setIssuance($issuance);
+      $this->setProcurement($procurement);
       $this->setProduct($product);
       $this->departmentCode = $departmentCode;
       $this->tenderID = $tenderID;
+    }
+
+    private function setProcurement(Procurement $procurementIn) {
+      $this->procurement = $procurementIn;
+    }
+
+    public function getProcurement() {
+      return $this->procurement;
     }
 
     private function setIssuance(Issuance $issuanceIn) {

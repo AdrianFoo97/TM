@@ -3,6 +3,7 @@
   include 'Issuance.php';
   include 'Product.php';
   include 'PR.php';
+  include 'Procurement.php';
   include 'createExcel.php';
 
   $prArray = array();
@@ -12,15 +13,43 @@
     global $type, $requestorID, $approvalID, $projectCode;
     global $tenderID, $departmentCode;
 
+    $contract = 'contractNo' . $i;
     $subcon = 'subcon' . $i;
     $duID = 'duID' . $i;
     $item = 'item' . $i;
+    $scenario = 'scenario' . $i;
+
+    // echo $_POST[$scenario] . "<br>";
+    // echo "<br>";
+
+    $lineItems = array();
+    include 'dbConnect.php';
+
+    if (strtolower($subcon) == "quantum") {
+      $sql = "SELECT lineID FROM line_item WHERE type='$_POST[$scenario]' AND
+              subcontractor='Quantum'";
+    }
+    else {
+      $sql = "SELECT lineID FROM line_item WHERE type='$_POST[$scenario]' AND
+              subcontractor='All'";
+    }
+
+    $result = $conn->query($sql);
+    $scenarioArray = array();
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+          array_push($lineItems, $row['lineID']);
+          // echo $row['lineID'] . "<br>";
+      }
+    }
 
     getVariable();
 
     // create 'issuance' object
     $issuance = new Issuance($GLOBALS['requestorID'], $GLOBALS['approvalID'],
-    $_POST[$subcon], $GLOBALS['projectCode'], "hello contract",
+    $_POST[$subcon], $GLOBALS['projectCode'], $_POST[$contract],
     $_POST[$duID], $GLOBALS['type']);
     // create 'product' object
 
@@ -51,10 +80,17 @@
     // echo "<br><br>";
 
     // create 'PR' object using issuance and product
-    $PR = new PR($issuance, $product, $GLOBALS['departmentCode'],
-          $GLOBALS['tenderID']);
 
-    array_push($prArray, $PR);
+    for ($j=0; $j<sizeof($lineItems); $j++) {
+        $procurement = new Procurement($lineItems[$j], $_POST[$subcon]);
+
+        $PR = new PR($issuance, $procurement, $product, $GLOBALS['departmentCode'],
+              $GLOBALS['tenderID']);
+        // var_dump($prArray[$j]);
+
+        array_push($prArray, $PR);
+    }
+
 
      // var_dump($PR->getIssuance());
      // echo "<br>";
@@ -68,11 +104,12 @@
 
   createExcel($prArray);
 
-  // for ($x=0; $x<sizeof($prArray); $x++) {
-  //   var_dump($prArray[$x]);
-  //   echo "<br><br>";
-  // }
+  for ($x=0; $x<sizeof($prArray); $x++) {
+    var_dump($prArray[$x]);
+    echo "<br><br>";
+  }
 
+  // function to get the session which is entered from the
   function getVariable() {
     if(isset($_SESSION['partial'])) {
       foreach($_SESSION['partial'] as $x => $value) {

@@ -32,12 +32,16 @@
                 <td align=right width='30%' height=70><label>Type:&nbsp;</label></td>
                 <td width='50%'>
                   <select class='form-control' name='type'>
+                    <!--
                     <option value='CME'>CME</option>
-                    <option value='CME-F'>CME-Fiber</option>
-                    <option value='Microwave'>Microwave</option>
+                    <option value='CME-F'>Fiber</option>
+                    <option value='Microwave'>Microwave (TX)</option>
                     <option value='RF'>RF</option>
+                    -->
                     <option value='TI'>TI</option>
+                    <!--
                     <option value='TSSR'>TSSR</option>
+                    -->
                   </select>
                 </td>
                 <td width='10%'></td>

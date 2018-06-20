@@ -2,6 +2,7 @@
   // Object Class for product
   Class Product {
     function Product($type) {
+      // set the variable using the result of getProduct
       $this->setVariable($this->getProduct($type));
     }
 

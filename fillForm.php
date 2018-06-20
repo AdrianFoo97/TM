@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="js/myScript.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
       table td input, table td select {
        width: 100%;
@@ -26,7 +26,67 @@
       th {
         text-align: center;
       }
+      #addBtn {
+        position:fixed;
+        right:2em;
+        bottom:2em;
+        width: 3.5em;
+        height: 3.5em;
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 1.33;
+        border-radius: 50%;;
+        -webkit-transition: all 0.3s ease-in-out;
+      }
+      #addBtn:hover {
+        -webkit-transform: scale(1.1);
+      }
     </style>
+    <script>
+      $(document).ready(function(){
+          $("#addBtn").click(function(){
+              var num = document.getElementById('num').innerHTML;
+              var newNum = Number(num);
+              var subconOption = <?php
+                include 'function2.php';
+                // get the subcontractor from database
+                $subconArray = getSubcon();
+                echo "\"<option style='display:none;' selected>Select supplier</option>";
+                for ($j=0; $j<sizeof($subconArray); $j++) {
+                    // echo $subconArray[$i];
+                    echo "<option value='" . $subconArray[$j] . "'>" .
+                    $subconArray[$j] . "</option>";
+                  }
+                echo "\";";
+               ?>
+                // get the scenario form database
+               var scnearioOption = <?php
+                 $scenarioArray = getScenario();
+                 echo "\"<option style='display:none;' selected>Select scenario</option>";
+                 for ($j=0; $j<sizeof($scenarioArray); $j++) {
+                     // echo $subconArray[$i];
+                     echo "<option value='" . $scenarioArray[$j] . "'>" .
+                     $scenarioArray[$j] . "</option>";
+                   }
+                 echo "\";";
+              ?>
+              var color = "";
+              if (newNum%2 == 0) {
+                color = " bgcolor='#F2F2F2'";
+              }
+              $("table").append(" <tr" + color + "><td align='center'>" + num + "</td><td><input type='text' name='duID" + newNum + "' class='form-control'>" +
+                "</td><td><select class='form-control' name='subcon" + newNum + "'>" + subconOption +
+                "</select></td><td><select class='form-control' name='scenario" + newNum + "' class='form-control'>" + scnearioOption +
+                "</select></td></tr>");
+              newNum += 1;
+              document.getElementById('num').innerHTML = newNum;
+              var test = "duID" + (newNum - 1);
+              console.log(test);
+              var elmnt = document.getElementById("btnDiv");
+              elmnt.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+          });
+      });
+    </script>
     <script>
         function submitForm() {
           var total = document.getElementById("num").innerHTML;
@@ -39,7 +99,9 @@
     <div class='container'>
       <div class='row'>
         <div class='col-sm-12'?>
-            <button class='btn btn-default' id='addBtn'>Add Row</button><br>
+            <!--
+            <button class='btn' id='addBtn'><i class="fa fa-plus"></i></button><br>
+            -->
         </div>
       </div><br>
       <div class='row'>
@@ -50,12 +112,12 @@
                   <table border='0' width='100%' class='table table-striped table-bordered'>
                     <tr>
                       <th width=5%>No.</th>
-                      <th width=30%>DU ID</th>
-                      <th width=30%>Subcontractor</th>
-                      <th width=30%>Type</th>
+                      <th width=24%>DU ID</th>
+                      <th width=24%>Sales Contract</th>
+                      <th width=24%>Subcontractor</th>
+                      <th width=24%>Type</th>
                     </tr>
                     <?php
-                      include 'function2.php';
                       $subconArray = getSubcon();
                       $scenarioArray = getScenario();
 
@@ -65,15 +127,26 @@
                         $_SESSION['rowNo'] = 1;
                       }
                       for ($i=$_SESSION['rowNo']; $i<=sizeof($duID); $i++) {
+                        $contract = getContractNo(trim($duID[$i-1]));
+                        // start of a table row
                         echo "<tr>";
+                          // No. column
                           echo "<td align='center'>$i</td>";
                           echo "<td>
                                   <input class='form-control' type='text' name='duID" . $i .
                                   "' value='" . $duID[$i-1] .
-                                "'</td>";
+                                "' readonly></td>";
+                          // Sales Contract column
+                          echo "<td><select class='form-control' name='contractNo" . $i . "'>
+                                    <option style='display:none;' selected value=''>Select contract No</option>";
+                          for ($j=0; $j<sizeof($contract); $j++) {
+                            echo "<option value='" . $contract[$j] . "'>" . $contract[$j] . "</option>";
+                          }
+                          echo "</select></td>";
+                          // Subcontractor column
                           echo "<td>
                                   <select class='form-control' name='subcon" . $i . "'>
-                                    <option style='display:none;' selected>Select supplier</option>";
+                                    <option style='display:none;' value='' selected>Select supplier</option>";
                           for ($j=0; $j<sizeof($subconArray); $j++) {
                               // echo $subconArray[$i];
                               echo "<option value='" . $subconArray[$j] . "'>" .
@@ -81,9 +154,10 @@
                             }
                           echo   "</select>
                               </td>";
+                        // Type column
                         echo "<td>
-                                <select class='form-control' name='subcon" . $i . "'>
-                                  <option style='display:none;' selected>Select scenario</option>";
+                                <select class='form-control' name='scenario" . $i . "'>
+                                  <option style='display:none;' value='' selected>Select scenario</option>";
                         for ($j=0; $j<sizeof($scenarioArray); $j++) {
                             // echo $subconArray[$i];
                             echo "<option value='" . $scenarioArray[$j] . "'>" .
@@ -99,8 +173,8 @@
                       unset($_SESSION['rowNo']);
                     ?>
                   </table>
-                  <div style='text-align: center;'>
-                    <button class='btn btn-default' onclick='submitForm()'>Submit</button>
+                  <div id='btnDiv' style='text-align: center;'>
+                    <button class='btn btn-default' onclick='submitForm()'>Export</button>
                   </div>
                 </form>
               </div>
