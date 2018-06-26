@@ -96,6 +96,27 @@
     </script>
   </head>
   <body>
+    <!-- nav bar -->
+    <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
+      <div class='container'>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.php">PR Template<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contract.php">Maintain Contract</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- end of navbar -->
+
     <div class='container'>
       <div class='row'>
         <div class='col-sm-12'?>
@@ -115,7 +136,7 @@
                       <th width=24%>DU ID</th>
                       <th width=24%>Sales Contract</th>
                       <th width=24%>Subcontractor</th>
-                      <th width=24%>Type</th>
+                      <th width=24%>Scenario</th>
                     </tr>
                     <?php
                       $subconArray = getSubcon();

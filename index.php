@@ -19,9 +19,29 @@
     </style>
   </head>
   <body>
+    <!-- nav bar -->
+    <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
+      <div class='container'>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.php">PR Template<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contract.php">Maintain Contract</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- end of navbar -->
     <div class='container'>
       <div class='row'>
-        <div class='offset-sm-2 col-sm-8 card' style='margin-top: 10%; height: 80%;'>
+        <div class='offset-sm-2 col-sm-8 card' style='margin-top: 5%; height: 800px;'>
           <div style='text-align: center; margin-top:7%;'>
             <h1>PR-Template Tool</h1>
           </div>

@@ -63,21 +63,16 @@ function deleteData(){
   return $result;
 }
 
-function getContract() {
+function getContractCount() {
   include 'dbConnect.php';
-  $sql = "SELECT * FROM contract";
+  $sql = "SELECT COUNT(*) AS total FROM contract";
   $result = $conn->query($sql);
-  $duIDArray = array();
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        array_push($duIDArray, $row['contractNo']);
+        $count = $row['total'];
     }
-    sort($duIDArray);
   }
-  else {
-    array_push($duIDArray, "Not found");
-  }
-  return $duIDArray;
+  return $count;
 }
 ?>

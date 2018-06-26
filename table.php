@@ -11,12 +11,12 @@
   <body>
     <table class='table table-stripped table-bordered'>
       <tr>
-          <th>No</th>
-          <th>Sn</th>
-          <th>DU ID</th>
-          <th>DU Name</th>
-          <th>Huawei Contract No</th>
-          <th>Customer PO No</th>
+          <th width=5%>No</th>
+          <th width=19%>Sn</th>
+          <th width=19%>DU ID</th>
+          <th width=19%>DU Name</th>
+          <th width=19%>Huawei Contract No</th>
+          <th width=19%>Customer PO No</th>
       </tr>
       <?php
         include 'dbConnect.php';

@@ -2,9 +2,10 @@
   include 'readExcel.php';
   include 'function2.php';
 
+  session_start();
   if(isset($_POST["submit"])) {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], "uploads/upload.xlsx")) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.<br>";
+        echo "<h1>The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.</h1><br>";
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
@@ -55,5 +56,11 @@
       }
     }
     $result = insertValue($sqlList);
+
+    sleep(2);
+
+    $_SESSION['imported'] = true;
+
+    header('Location: contract.php');
   }
  ?>
