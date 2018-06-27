@@ -98,6 +98,7 @@
     //$sheet->mergeCells('Z3:Z4');
   }
 
+  // let user to download the exported excel file
   function downloadFile($file) {
     header('Content-disposition: attachment; filename='.$file);
     header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

@@ -8,7 +8,7 @@
 
     // function to get product details (procurement)
     function getProduct ($type) {
-      include 'dbConnect.php';
+      include './functions/dbConnect.php';
       $sql = "SELECT * FROM procurement WHERE type='$type'";
       $subprojectCode = "no Result";
       $result = $conn->query($sql);

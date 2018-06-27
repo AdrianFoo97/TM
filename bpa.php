@@ -21,10 +21,11 @@
   </head>
   <body>
     <!-- nav bar -->
-    <?php writeNavbar("contract"); ?>
+    <?php
+      writeNavbar("other");
+     ?>
     <!-- end of navbar -->
 
-    <!-- form to get imported file from user -->
     <form style='margin-top: 1em;' action="importContract.php" method="post" enctype="multipart/form-data">
       <div class='container'>
         <p style='margin: 0;'>Import File: </p>
@@ -49,25 +50,8 @@
         </div>
       </div>
     </form>
-    <!-- end of form -->
-
-    <!-- container to add iframe -->
-    <div class='container'>
-      <div class='row'>
-        <h6>Total rows:
-          <?php
-            if (isset($_SESSION['countContract'])) {
-              echo $_SESSION['countContract'];
-            }
-            unset($_SESSION['countContract']);
-            unset($_SESSION['imported']);
-           ?>
-        </h6>
-        <iframe style='width: 100%; height:75%;' src="table.php" frameborder='1'></iframe>
-      </div>
-    </div>
-    <!-- enf of iframe container -->
-
-    <?php writeScript() ?>
+    <script src="js/jquery-slim.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>

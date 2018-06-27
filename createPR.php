@@ -1,10 +1,10 @@
 <?php
   session_start();
-  include 'Issuance.php';
-  include 'Product.php';
-  include 'PR.php';
-  include 'Procurement.php';
-  include 'createExcel.php';
+  include 'object/Issuance.php';
+  include 'object/Product.php';
+  include 'object/PR.php';
+  include 'object/Procurement.php';
+  include 'functions/createExcel.php';
 
   $prArray = array();
 
@@ -23,7 +23,7 @@
     // echo "<br>";
 
     $lineItems = array();
-    include 'dbConnect.php';
+    include 'functions/dbConnect.php';
 
     if (strtolower($subcon) == "quantum") {
       $sql = "SELECT lineID FROM line_item WHERE type='$_POST[$scenario]' AND

@@ -3,6 +3,7 @@
   include 'function2.php';
 
   session_start();
+
   if(isset($_POST["submit"])) {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], "uploads/upload.xlsx")) {
         echo "<h1>The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.</h1><br>";
@@ -13,8 +14,14 @@
 
   $row = readExcel("uploads/upload.xlsx");
 
+  // remove data in database
   deleteData();
+
+  // Insert data from the 2D array ($row) into database
   import2DB($row);
+
+
+ // _________________________________________________________________________
 
   function import2DB($row) {
     $sqlList = "";
@@ -22,7 +29,7 @@
     $totalAll = 0;
     foreach ($row as $row => $cell) {
       foreach ($cell as $cell => $data) {
-        // replace single quote to double quote
+        // replace single quote to double quote (escape character)
         $data = str_replace('\'', '\'\'', $data);
         // assign data to variable accroding to the cell position
         if ($cell == 0) {
@@ -55,8 +62,10 @@
         }
       }
     }
+
     $result = insertValue($sqlList);
 
+    // Wait computer to finish execution of sql query for 2 second
     sleep(2);
 
     $_SESSION['imported'] = true;

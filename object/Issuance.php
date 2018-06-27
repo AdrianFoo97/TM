@@ -2,7 +2,7 @@
   // Object class for Issuance
   class Issuance {
     public $region;
-
+    // Constructor for Issuance Object
     function Issuance($requestorID, $approvalID, $subcon, $projectCode,
                       $contract, $duID, $type) {
       $this->requestorID = $requestorID;
@@ -37,7 +37,7 @@
 
     // function to get subproject code based on type and region
     function getSubprojectCode($type, $region) {
-      include 'dbConnect.php';
+      include './functions/dbConnect.php';
       $name = "2018 TM LTE Project " . $type;
       $sql = "SELECT code FROM subproject WHERE name='$name' AND
               region = '$region'";
@@ -53,16 +53,4 @@
       return $subprojectCode;
     }
   }
-
-  // $Issuance1 = new Issuance("N123", "approvalID", "subcon", "projectCode", "contract", "N100", "TX");
-  //
-  // echo $Issuance1->requestorID . "<br>";
-  // echo $Issuance1->approvalID . "<br>";
-  // echo $Issuance1->subcon . "<br>";
-  // echo $Issuance1->region . "<br>";
-  // echo $Issuance1->projectCode . "<br>";
-  // echo $Issuance1->subProjectCode . "<br>";
-  // echo $Issuance1->contract . "<br>";
-  // echo $Issuance1->duID . "<br>";
-  // echo $Issuance1->type . "<br>";
 ?>

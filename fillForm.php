@@ -3,7 +3,8 @@
   $_SESSION['partial'] = array("type"=> $_POST['type'], "requestorID"=>$_POST['requestorID'],
   "approvalID"=>$_POST['approvalID'], "projectCode"=>$_POST['projectCode'],
   "departmentCode"=>$_POST['departmentCode'], "tenderID"=>$_POST['tenderID']);
-
+  include "functions/writeHTML.php";
+  include "functions/function2.php";
   // foreach($_SESSION['partial'] as $x => $x_value) {
   //   echo "Key=" . $x . ", Value=" . $x_value;
   //   echo "<br>";
@@ -12,13 +13,7 @@
 <!DOCTYPE>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>Auto Filling</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <?php writeHeadElements(); ?>
     <style>
       table td input, table td select {
        width: 100%;
@@ -97,24 +92,7 @@
   </head>
   <body>
     <!-- nav bar -->
-    <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
-      <div class='container'>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.php">PR Template<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contract.php">Maintain Contract</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <?php writeNavbar("index"); ?>
     <!-- end of navbar -->
 
     <div class='container'>
@@ -203,6 +181,6 @@
           </div>
       </div>
     </div>
-
+    <?php writeScript() ?>
   </body>
 </html>

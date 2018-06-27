@@ -1,13 +1,9 @@
 <?php
   require 'vendor/autoload.php';
 
-  // use PhpOffice\PhpSpreadsheet\Spreadsheet;
-  // use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-
   use PhpOffice\PhpSpreadsheet\IOFactory;
 
-  // require __DIR__ . '/../Header.php';
-
+  // Read in excel file and return an 2 dimensional (2D) array of data
   function readExcel($fileName) {
     $inputFileType = 'Xlsx';
     $inputFileName = __DIR__ . '\\' . $fileName;
@@ -17,9 +13,7 @@
     $spreadsheet = $reader->load($inputFileName);
 
     $sheetData = $spreadsheet->getActiveSheet()->toArray();
-    // var_dump($sheetData);
 
     return $sheetData;
   }
-
 ?>

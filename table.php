@@ -19,7 +19,7 @@
           <th width=19%>Customer PO No</th>
       </tr>
       <?php
-        include 'dbConnect.php';
+        include 'functions/dbConnect.php';
         $sql = "SELECT * FROM contract";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {

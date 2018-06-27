@@ -1,17 +1,18 @@
 <?php
+  // Object class for Procurement
   class Procurement {
     function Procurement($itemID, $subcon) {
       $this->itemID = $itemID;
       $this->subcon = $subcon;
       $this->setAttribute($itemID, $subcon);
     }
-
+    // Set the procurement attributes according to itemID and subcon
     function setAttribute($itemID, $subcon) {
       //-------------------------------------
       $subcon = "ALL";
       $this->subcon = $subcon;
       //--------------------------------------
-      include 'dbConnect.php';
+      include './functions/dbConnect.php';
       $sql = "SELECT * FROM bpa WHERE itemID='$itemID'";
       $result = $conn->query($sql);
 
@@ -34,22 +35,4 @@
       }
     }
   }
-
-  // $procurement = new Procurement("88124XSX", "a");
-  //
-  // echo $procurement->itemID;
-  // echo "<br>";
-  // echo $procurement->subcon;
-  // echo "<br>";
-  // echo $procurement->commodity;
-  // echo "<br>";
-  // echo $procurement->subgroup;
-  // echo "<br>";
-  // echo $procurement->classification;
-  // echo "<br>";
-  // echo $procurement->description;
-  // echo "<br>";
-  // echo $procurement->uom;
-  // echo "<br>";
-
  ?>
