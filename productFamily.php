@@ -1,7 +1,7 @@
 <?php
   session_start();
-  include 'function2.php';
-  include 'writeHTML.php';
+  include 'functions/function2.php';
+  include 'functions/writeHTML.php';
   $_SESSION['countContract'] = getContractCount();
  ?>
 <!DOCTYPE>

@@ -1,16 +1,13 @@
 <?php
   session_start();
-  include 'function2.php';
+  include 'functions/function2.php';
+  include 'functions/writeHTML.php';
   $_SESSION['countContract'] = getContractCount();
  ?>
 <!DOCTYPE>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>Auto Filling</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-
+    <?php writeHeadElements(); ?>
     <style>
     .card {
         /* Add shadows to create the "card" effect */
@@ -24,34 +21,9 @@
   </head>
   <body>
     <!-- nav bar -->
-    <nav class='navbar navbar-expand-lg navbar-dark bg-dark sticky-top'>
-      <div class='container'>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="index.php">PR Template<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contract.php">Sales Contract</a>
-            </li>
-            <li class="nav-item dropdown active">
-              <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Maintain Data
-              </a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">BPA</a>
-                <a class="dropdown-item" href="#">Product Family</a>
-                <a class="dropdown-item" href="#">Scenario</a>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <?php
+      writeNavbar("other");
+     ?>
     <!-- end of navbar -->
 
     <form style='margin-top: 1em;' action="importContract.php" method="post" enctype="multipart/form-data">

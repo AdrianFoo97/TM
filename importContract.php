@@ -1,6 +1,6 @@
 <?php
-  include 'readExcel.php';
-  include 'function2.php';
+  include 'functions/readExcel.php';
+  include 'functions/function2.php';
 
   session_start();
 
@@ -12,7 +12,7 @@
     }
   }
 
-  $row = readExcel("uploads/upload.xlsx");
+  $row = readExcel("../uploads/upload.xlsx");
 
   // remove data in database
   deleteData();
