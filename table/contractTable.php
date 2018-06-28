@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <title>Auto Filling</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
   </head>
   <body>
     <table class='table table-stripped table-bordered'>
@@ -19,7 +19,7 @@
           <th width=19%>Customer PO No</th>
       </tr>
       <?php
-        include 'functions/dbConnect.php';
+        include '../functions/dbConnect.php';
         $sql = "SELECT * FROM contract";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
@@ -39,6 +39,5 @@
         }
       ?>
     </table>
-
   </body>
 </html>

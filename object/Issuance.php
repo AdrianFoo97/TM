@@ -38,10 +38,12 @@
     // function to get subproject code based on type and region
     function getSubprojectCode($type, $region) {
       include './functions/dbConnect.php';
-      $name = "2018 TM LTE Project " . $type;
-      $sql = "SELECT code FROM subproject WHERE name='$name' AND
+      if ($type == "TI") {
+        $type = "TI (RAN)";
+      }
+      $sql = "SELECT code FROM subproject WHERE type='$type' AND
               region = '$region'";
-      $subprojectCode = "no Result";
+      $subprojectCode = $type;
       $result = $conn->query($sql);
 
       if ($result->num_rows > 0) {

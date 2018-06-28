@@ -1,25 +1,26 @@
 <?php
-  include 'functions/readExcel.php';
-  include 'functions/function2.php';
+  include '../functions/readExcel.php';
+  include '../functions/function2.php';
 
   session_start();
 
   if(isset($_POST["submit"])) {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], "uploads/upload.xlsx")) {
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], "../uploads/scenario.xlsx")) {
         echo "<h1>The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.</h1><br>";
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
   }
 
-  $row = readExcel("../uploads/upload.xlsx");
+  $row = readExcel("../uploads/scenario.xlsx");
 
   // remove data in database
-  deleteData();
+  $result = deleteData("line_item");
 
-  // Insert data from the 2D array ($row) into database
-  import2DB($row);
-
+  if ($result) {
+    // Insert data from the 2D array ($row) into database
+    import2DB($row);
+  }
 
  // _________________________________________________________________________
 
@@ -33,43 +34,37 @@
         $data = str_replace('\'', '\'\'', $data);
         // assign data to variable accroding to the cell position
         if ($cell == 0) {
-          $sn = $data;
+          $subcon = $data;
         }
         elseif ($cell == 1) {
-          $du_id = $data;
+          $scenario = $data;
         }
         elseif ($cell ==2) {
-          $du_name = $data;
-        }
-        elseif ($cell == 3) {
-          $contractNo = $data;
-        }
-        else {
-          $customer_po = $data;
+          $item = $data;
         }
       }
       // exclude the first column header row
       if ($row != 0) {
         $total += 1;
         $totalAll += 1;
-        $sql = "INSERT INTO contract VALUES ('$sn', '$du_id', '$du_name', '$contractNo', '$customer_po');";
+        $sql = "INSERT INTO line_item VALUES ('$item', '$scenario', '$subcon');";
         $sqlList = $sqlList . $sql;
         // run the query when there are 50 queries in the string
         if ($total >= 50) {
-          $result = insertValue($sqlList);
+          $result = runMultiQuery($sqlList);
           $total = 0;
           $sqlList = "";
         }
       }
     }
 
-    $result = insertValue($sqlList);
+    $result = runMultiQuery($sqlList);
 
     // Wait computer to finish execution of sql query for 2 second
     sleep(2);
 
     $_SESSION['imported'] = true;
 
-    header('Location: contract.php');
+    header('Location: ../scenario.php');
   }
  ?>

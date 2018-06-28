@@ -1,10 +1,17 @@
 <?php
+  /*
+    This file contains functions that are related to importing and
+    exporting excel file
+  */
+
   require 'vendor/autoload.php';
 
   use PhpOffice\PhpSpreadsheet\Spreadsheet;
   use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
   // function to set column on the excel file
   function setExcelColumn($sheet) {
+    // Set border for all the cell used
     for ($i=2; $i<5; $i++) {
       foreach (range('A', 'Z') as $columnID) {
         $cell = $columnID . $i;
@@ -12,8 +19,7 @@
             ->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
       }
     }
-
-
+    
     $sheet->setCellValue('A3', 'PR issuance Support Data');
     $sheet->getStyle('A3')->getFill()
     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)

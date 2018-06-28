@@ -2,7 +2,7 @@
   session_start();
   include 'functions/function2.php';
   include 'functions/writeHTML.php';
-  $_SESSION['countContract'] = getContractCount();
+  $_SESSION['countProcurement'] = getCount("procurement");
  ?>
 <!DOCTYPE>
 <html>
@@ -26,23 +26,26 @@
      ?>
     <!-- end of navbar -->
 
-    <form style='margin-top: 1em;' action="importContract.php" method="post" enctype="multipart/form-data">
+    <form style='margin-top: 1em;' action="import/importProductFamily.php" method="post" enctype="multipart/form-data">
       <div class='container'>
-        <p style='margin: 0;'>Import File: </p>
+        <div style='text-align: center;'>
+          <h4>Product Family</h4>
+        </div>
+        <p style='margin: 0;'>Update Product Family: </p>
         <div class='row'>
             <div class='col-sm-10'>
               <input class='form-control' type="file" name="fileToUpload" accept=".xls, .xlsx">
             </div>
             <div class='col-sm-2'>
-                <input type="submit" name='submit' class='btn btn-default'>
+                <input type="submit" name='submit' class='btn btn-default' value='Update'>
             </div>
         </div>
         <div class='row'>
           <div class='col-sm-10'>
             <div style='text-align: center;'>
             <?php
-              if (isset($_SESSION['countContract']) && isset($_SESSION['imported'])) {
-                echo "<h6>" . $_SESSION['countContract'] . " rows has been imported.</h6>";
+              if (isset($_SESSION['countProcurement']) && isset($_SESSION['imported'])) {
+                echo "<h6>" . $_SESSION['countProcurement'] . " rows have been imported.</h6>";
               }
              ?>
            </div>
@@ -50,8 +53,24 @@
         </div>
       </div>
     </form>
-    <script src="js/jquery-slim.min.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+
+    <!-- container to add iframe -->
+    <div class='container'>
+      <div class='row'>
+        <h6>Total Product Family:
+          <?php
+            if (isset($_SESSION['countProcurement'])) {
+              echo $_SESSION['countProcurement'];
+            }
+            unset($_SESSION['countProcurement']);
+            unset($_SESSION['imported']);
+           ?>
+        </h6>
+        <iframe style='width: 100%; height:75%;' src="table/productFamilyTable.php" frameborder='1'></iframe>
+      </div>
+    </div>
+    <!-- enf of iframe container -->
+
+    <?php writeScript() ?>
   </body>
 </html>

@@ -16,7 +16,6 @@
       setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
     }
 
-
     setExcelColumn($sheet);
 
     for ($x=0; $x<sizeof($prArray); $x++) {

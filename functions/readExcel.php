@@ -1,9 +1,13 @@
 <?php
-  require 'vendor/autoload.php';
+  /*
+    This file contains function to read an Excel file and return a two
+    dimensional (2D) array of all the data
+  */
+
+  require '../vendor/autoload.php';
 
   use PhpOffice\PhpSpreadsheet\IOFactory;
 
-  // Read in excel file and return an 2 dimensional (2D) array of data
   function readExcel($fileName) {
     $inputFileType = 'Xlsx';
     $inputFileName = __DIR__ . '\\' . $fileName;

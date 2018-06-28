@@ -2,7 +2,7 @@
   session_start();
   include 'functions/function2.php';
   include 'functions/writeHTML.php';
-  $_SESSION['countScenario'] = getCount("line_item");
+  $_SESSION['countSubproject'] = getCount("subproject");
  ?>
 <!DOCTYPE>
 <html>
@@ -26,10 +26,10 @@
      ?>
     <!-- end of navbar -->
 
-    <form style='margin-top: 1em;' action="import/importTiScenario.php" method="post" enctype="multipart/form-data">
+    <form style='margin-top: 1em;' action="import/importSubproject.php" method="post" enctype="multipart/form-data">
       <div class='container'>
         <div style='text-align: center;'>
-          <h4>TI Scenario</h4>
+          <h4>Subproject</h4>
         </div>
         <p style='margin: 0;'>Import File: </p>
         <div class='row'>
@@ -44,8 +44,8 @@
           <div class='col-sm-10'>
             <div style='text-align: center;'>
             <?php
-              if (isset($_SESSION['countScenario']) && isset($_SESSION['imported'])) {
-                echo "<h6>" . $_SESSION['countScenario'] . " rows have been imported.</h6>";
+              if (isset($_SESSION['countSubproject']) && isset($_SESSION['imported'])) {
+                echo "<h6>" . $_SESSION['countSubproject'] . " rows have been imported.</h6>";
               }
              ?>
            </div>
@@ -59,14 +59,14 @@
       <div class='row'>
         <h6>Total rows:
           <?php
-            if (isset($_SESSION['countScenario'])) {
-              echo $_SESSION['countScenario'];
+            if (isset($_SESSION['countSubproject'])) {
+              echo $_SESSION['countSubproject'];
             }
-            unset($_SESSION['countScenario']);
+            unset($_SESSION['countSubproject']);
             unset($_SESSION['imported']);
            ?>
         </h6>
-        <iframe style='width: 100%; height:75%;' src="table/scenarioTable.php" frameborder='1'></iframe>
+        <iframe style='width: 100%; height:75%;' src="table/subprojectTable.php" frameborder='1'></iframe>
       </div>
     </div>
     <!-- enf of iframe container -->
